@@ -17,15 +17,15 @@
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
-			<url>http://localhost:8081/repository/maven-snapshots
+			<url>http://localhost:8081/repository/maven-snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>nexus-releases</id>
-			<url>http://localhost:8081/repository/maven-releases
+			<url>http://localhost:8081/repository/maven-releases</url>
 		</repository>
 	</distributionManagement>
 
