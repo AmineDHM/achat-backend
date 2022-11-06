@@ -1,6 +1,7 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -57,13 +58,13 @@ public class FactureRestController {
     // http://localhost:8089/SpringMVC/facture/getFactureByFournisseur/{fournisseur-id}
     @GetMapping("/getFactureByFournisseur/{fournisseur-id}")
     @ResponseBody
-    public List<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
+    public List<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) throws NotFoundException {
         return factureService.getFacturesByFournisseur(fournisseurId);
     }
 
     // http://localhost:8089/SpringMVC/facture/assignOperateurToFacture/1/1
     @PutMapping(value = "/assignOperateurToFacture/{idOperateur}/{idFacture}")
-    public void assignOperateurToFacture(@PathVariable("idOperateur") Long idOperateur, @PathVariable("idFacture") Long idFacture) {
+    public void assignOperateurToFacture(@PathVariable("idOperateur") Long idOperateur, @PathVariable("idFacture") Long idFacture) throws NotFoundException {
         factureService.assignOperateurToFacture(idOperateur, idFacture);
     }
 
