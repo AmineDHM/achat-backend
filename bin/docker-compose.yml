@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+  mysqldb:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: achatdb
+    volumes:
+      - db:/var/lib/mysql
+
+  backend:
+    image: achat-backend
+    build: .
+    ports:
+      - 8089:8089
+    restart: on-failure
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/testdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root"
+      }'
+volumes:
+  db:
