@@ -115,17 +115,17 @@ pipeline {
             }
         }
 
+        stage('docker compose stage') {
+
+            steps {
+           sh 'docker-compose up -d'
+
             }
         }
 
       stage("Email"){
                 steps{
-                    emailext attachLog: true, body: "${env.BUILD_URL} has result ${currentBuild.result}", compressLog: true, subject: "Status of pipeline: ${currentBuild.fullDisplayName}", to: sinda.djebali
-
-        stage('docker compose stage') {
-
-            steps {
-           sh 'docker-compose up -d'@esprit.tn'
+                    emailext attachLog: true, body: "${env.BUILD_URL} has result ${currentBuild.result}", compressLog: true, subject: "Status of pipeline: ${currentBuild.fullDisplayName}", to: 'sinda.djebali@esprit.tn'
                 }
             }
      }
