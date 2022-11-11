@@ -34,7 +34,7 @@ pipeline {
                         String dateString = date.format("dd-MM-yyyy")
                        println "Date : " + dateString
                        }
-               mail body: 'Pipeline has been executed successfully', to: "sinda.djebali@esprit.tn", subject: 'pipeline executed'
+
          }
          }
 
@@ -123,10 +123,6 @@ pipeline {
             }
         }
 
-      stage("Email"){
-                steps{
-                    emailext attachLog: true, body: "${env.BUILD_URL} has result ${currentBuild.result}", compressLog: true, subject: "Status of pipeline: ${currentBuild.fullDisplayName}", to: 'sinda.djebali@esprit.tn'
-                }
-            }
+
      }
      }
