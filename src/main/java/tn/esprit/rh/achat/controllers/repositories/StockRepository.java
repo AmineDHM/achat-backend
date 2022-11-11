@@ -1,4 +1,4 @@
-package tn.esprit.rh.achat.repositories;
+package tn.esprit.rh.achat.controllers.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
