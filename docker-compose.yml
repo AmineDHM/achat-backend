@@ -13,8 +13,7 @@ services:
       - db:/var/lib/mysql
 
   backend:
-    image: achat-backend
-    build: .
+    image: amine1403/achat-backend
     ports:
       - 8089:8089
     restart: on-failure
