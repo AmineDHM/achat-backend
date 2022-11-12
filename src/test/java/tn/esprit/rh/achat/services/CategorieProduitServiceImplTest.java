@@ -49,14 +49,12 @@ class CategorieProduitServiceImplTest {
 
         given(categorieProduitRepository.findAll()).willReturn(new ArrayList<>(Arrays.asList(categorieProduit, categorieProduit1)));
         List<CategorieProduit> categorieProduits = categorieProduitService.retrieveAllCategorieProduits();
-        assertThat(categorieProduits).isNotNull();
-        assertThat(categorieProduits.size()).isEqualTo(2);
+        assertThat(categorieProduits).isNotNull().hasSize(2);
 
         //negative scenario
         given(categorieProduitRepository.findAll()).willReturn(Collections.emptyList());
         categorieProduits = categorieProduitService.retrieveAllCategorieProduits();
         assertThat(categorieProduits).isEmpty();
-        assertThat(categorieProduits.size()).isEqualTo(0);
     }
 
     @Test
