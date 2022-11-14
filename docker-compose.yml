@@ -13,7 +13,7 @@ services:
       - db:/var/lib/mysql
 
   backend:
-    image: amine1403/achat-backend
+    image:  yossersn/tpachatproject:latest
     ports:
       - 8089:8089
     restart: on-failure
