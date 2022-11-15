@@ -78,6 +78,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+
 	<distributionManagement>
 		<repository>
 			<id>deploymentRepo</id>
