@@ -11,42 +11,33 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import tn.esprit.rh.achat.entities.SecteurActivite;
 import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@TestMethodOrder(OrderAnnotation.class)
 class SecteurActiviteServiceImplTest {
 	
 	@InjectMocks
 	SecteurActiviteServiceImpl service;
 	
-	//@Mock
-	SecteurActiviteRepository repository =  Mockito.mock(SecteurActiviteRepository.class);
+	@Mock
+	SecteurActiviteRepository repository;
 
-	/*SecteurActivite secteurActivite = SecteurActivite.builder()
+	SecteurActivite secteurActivite = SecteurActivite.builder()
 			.idSecteurActivite(1L)
 			.codeSecteurActivite("8Z4DC")
 			.libelleSecteurActivite("secteur informatique")
-			.build();*/
+			.build();
 	
-	SecteurActivite secteurActivite = new SecteurActivite(1L,"8Z4DC","secteur informatique");
 	
 	@Test
-	@Order(1)
 	void testRetrieveAllSecteurActivite() {
 		SecteurActivite secteurActivite1 = SecteurActivite.builder()
 				.idSecteurActivite(2L)
@@ -66,7 +57,6 @@ class SecteurActiviteServiceImplTest {
 	}
 	
 	@Test
-	@Order(2)
 	void testAddSecteurActivite() {
 		when(repository.save(secteurActivite)).thenReturn(secteurActivite);
 		
@@ -77,7 +67,6 @@ class SecteurActiviteServiceImplTest {
 	}
 	
 	@Test
-	@Order(3)
 	void testDeleteSecteurActivite() {
 		long idSecteurActivite = 1l;
 		service.deleteSecteurActivite(idSecteurActivite);
@@ -85,7 +74,6 @@ class SecteurActiviteServiceImplTest {
 	}
 	
 	@Test
-	@Order(4)
 	void testUpdateSecteurActivite() {
 		when(repository.save(secteurActivite)).thenReturn(secteurActivite);
 		secteurActivite.setCodeSecteurActivite("X25ED3");
@@ -97,7 +85,6 @@ class SecteurActiviteServiceImplTest {
 	}
 	
 	@Test
-	@Order(5)
 	void testRetrieveSecteurActivite() {
 		long idSecteurActivite = 1l;
 		when(repository.findById(idSecteurActivite)).thenReturn(Optional.of(secteurActivite));
