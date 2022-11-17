@@ -32,7 +32,7 @@ class SecteurActiviteServiceImplTest {
 	@Mock
 	SecteurActiviteRepository repository;
 
-	SecteurActivite secteurActivite;
+	//SecteurActivite secteurActivite;
 	
 	/*@BeforeEach
 	public void setup() {
