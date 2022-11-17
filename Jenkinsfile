@@ -118,7 +118,13 @@ pipeline {
         stage('docker compose stage') {
 
             steps {
-           sh 'docker-compose up -d'
+            '''
+                sudo docker pull sindaesprit2022/stockdevops
+               
+                sudo docker-compose up -d 
+                sudo docker-compose ps
+                '''
+                }
 
             }
         }
