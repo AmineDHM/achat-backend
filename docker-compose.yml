@@ -21,7 +21,7 @@ services:
       - mysqldb
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/achatdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/testdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.datasource.username" : "root",
         "spring.datasource.password" : "root"
       }'

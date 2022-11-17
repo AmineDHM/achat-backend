@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,23 +31,18 @@ class SecteurActiviteServiceImplTest {
 	@Mock
 	SecteurActiviteRepository repository;
 
-	//SecteurActivite secteurActivite;
+	SecteurActivite secteurActivite;
 	
-	/*@BeforeEach
+	@BeforeEach
 	public void setup() {
 		SecteurActivite.builder()
 				.idSecteurActivite(1L)
 				.codeSecteurActivite("8Z4DC")
 				.libelleSecteurActivite("secteur informatique")
 				.build();
-	}*/
-	
-	@Test
-	void hello() {
-		assertEquals(true, true);
 	}
 	
-	/*@Test
+	@Test
 	void testRetrieveAllSecteurActivite() {
 		SecteurActivite secteurActivite1 = SecteurActivite.builder()
 				.idSecteurActivite(2L)
@@ -102,5 +96,5 @@ class SecteurActiviteServiceImplTest {
 		
 		SecteurActivite searchedSecteurActivite = service.retrieveSecteurActivite(idSecteurActivite);
 		assertNotNull(searchedSecteurActivite);
-	}*/
+	}
 }
