@@ -35,7 +35,6 @@ public class SecteurActivite implements Serializable{
 	private Set<Fournisseur> fournisseurs;
 	
 	public SecteurActivite(Long idSecteurActivite, String codeSecteurActivite, String libelleSecteurActivite) {
-		super();
 		this.idSecteurActivite = idSecteurActivite;
 		this.codeSecteurActivite = codeSecteurActivite;
 		this.libelleSecteurActivite = libelleSecteurActivite;

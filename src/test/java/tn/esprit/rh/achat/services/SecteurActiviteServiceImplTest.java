@@ -31,16 +31,16 @@ class SecteurActiviteServiceImplTest {
 	@Mock
 	SecteurActiviteRepository repository;
 
-	SecteurActivite secteurActivite;
+	SecteurActivite secteurActivite = new SecteurActivite(1L,"8Z4DC","secteur informatique");
 	
-	@BeforeEach
+	/*@BeforeEach
 	public void setup() {
 		SecteurActivite.builder()
 				.idSecteurActivite(1L)
 				.codeSecteurActivite("8Z4DC")
 				.libelleSecteurActivite("secteur informatique")
 				.build();
-	}
+	}*/
 	
 	@Test
 	void testRetrieveAllSecteurActivite() {
