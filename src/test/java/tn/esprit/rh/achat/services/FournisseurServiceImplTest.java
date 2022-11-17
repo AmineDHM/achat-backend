@@ -21,7 +21,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import tn.esprit.rh.achat.entities.CategorieFournisseur;
-import tn.esprit.rh.achat.entities.CategorieProduit;
 import tn.esprit.rh.achat.entities.Fournisseur;
 import tn.esprit.rh.achat.repositories.FournisseurRepository;
 
