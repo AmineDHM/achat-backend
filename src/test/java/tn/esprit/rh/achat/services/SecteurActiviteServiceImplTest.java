@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,12 +32,16 @@ class SecteurActiviteServiceImplTest {
 	@Mock
 	SecteurActiviteRepository repository;
 
-	SecteurActivite secteurActivite = SecteurActivite.builder()
-			.idSecteurActivite(1L)
-			.codeSecteurActivite("8Z4DC")
-			.libelleSecteurActivite("secteur informatique")
-			.build();
+	SecteurActivite secteurActivite;
 	
+	@BeforeEach
+	public void setup() {
+		SecteurActivite.builder()
+				.idSecteurActivite(1L)
+				.codeSecteurActivite("8Z4DC")
+				.libelleSecteurActivite("secteur informatique")
+				.build();
+	}
 	
 	@Test
 	void testRetrieveAllSecteurActivite() {
