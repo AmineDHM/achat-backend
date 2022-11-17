@@ -1,91 +1,92 @@
 package tn.esprit.rh.achat.services;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.rh.achat.entities.CategorieProduit;
-import tn.esprit.rh.achat.repositories.CategorieProduitRepository;
 
-import java.util.*;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.*;
 
-
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@RunWith(SpringRunner.class)
 class CategorieProduitServiceImplTest {
-    @Mock
-    private CategorieProduitRepository categorieProduitRepository;
 
-    @InjectMocks
-    private CategorieProduitServiceImpl categorieProduitService;
+    @Autowired
+    ICategorieProduitService categorieProduitService;
 
-    private CategorieProduit categorieProduit;
-
-    @BeforeEach
-    public void setup() {
-        categorieProduit = CategorieProduit.builder()
-                .idCategorieProduit(1L)
-                .codeCategorie("C1")
-                .libelleCategorie("Category1")
-                .build();
+    @Test
+    @Order(2)
+    void retrieveAllCategorieProduits() {
+        assertEquals(0, categorieProduitService.retrieveAllCategorieProduits().size());
+        CategorieProduit categorieProduit = CategorieProduit.builder().
+                libelleCategorie("test").
+                codeCategorie("test").
+                build();
+        CategorieProduit savedCategorieProduit = categorieProduitService.addCategorieProduit(categorieProduit);
+        assertEquals(1, categorieProduitService.retrieveAllCategorieProduits().size());
+        categorieProduitService.deleteCategorieProduit(savedCategorieProduit.getIdCategorieProduit());
+        assertEquals(0, categorieProduitService.retrieveAllCategorieProduits().size());
     }
 
-    @DisplayName("JUnit test for saveEmployee method")
     @Test
-    void retrieveAllCategorieProduitsTest() {
-        CategorieProduit categorieProduit1 = CategorieProduit.builder()
-                .idCategorieProduit(2L)
-                .codeCategorie("C2")
-                .libelleCategorie("Category2")
-                .build();
-
-        given(categorieProduitRepository.findAll()).willReturn(new ArrayList<>(Arrays.asList(categorieProduit, categorieProduit1)));
+    @Order(1)
+    void addCategorieProduit() {
         List<CategorieProduit> categorieProduits = categorieProduitService.retrieveAllCategorieProduits();
-        assertThat(categorieProduits).isNotNull().hasSize(2);
-
-        //negative scenario
-        given(categorieProduitRepository.findAll()).willReturn(Collections.emptyList());
-        categorieProduits = categorieProduitService.retrieveAllCategorieProduits();
-        assertThat(categorieProduits).isEmpty();
+        int expected = categorieProduits.size();
+        CategorieProduit categorieProduit = CategorieProduit.builder().
+                libelleCategorie("test").
+                codeCategorie("test").
+                build();
+        CategorieProduit savedCategorieProduit = categorieProduitService.addCategorieProduit(categorieProduit);
+        assertEquals(expected + 1, categorieProduitService.retrieveAllCategorieProduits().size());
+        assertNotNull(savedCategorieProduit.getLibelleCategorie());
+        System.out.println(categorieProduitService.retrieveAllCategorieProduits().size());
+        categorieProduitService.deleteCategorieProduit(categorieProduit.getIdCategorieProduit());
     }
 
     @Test
-    void addCategorieProduitTest() {
-        given(categorieProduitRepository.save(categorieProduit)).willReturn(categorieProduit);
-        CategorieProduit savedEmployee = categorieProduitService.addCategorieProduit(categorieProduit);
-        assertThat(savedEmployee).isNotNull();
+    void deleteCategorieProduit() {
+        CategorieProduit categorieProduit = CategorieProduit.builder().
+                libelleCategorie("test").
+                codeCategorie("test").
+                build();
+        CategorieProduit savedCategorieProduit = categorieProduitService.addCategorieProduit(categorieProduit);
+        int expected = categorieProduitService.retrieveAllCategorieProduits().size();
+        categorieProduitService.deleteCategorieProduit(savedCategorieProduit.getIdCategorieProduit());
+        assertEquals(expected - 1, categorieProduitService.retrieveAllCategorieProduits().size());
     }
 
     @Test
-    void deleteCategorieProduitTest() {
-        long categorieProduitId = 1L;
-        willDoNothing().given(categorieProduitRepository).deleteById(categorieProduitId);
-        categorieProduitService.deleteCategorieProduit(categorieProduitId);
-        verify(categorieProduitRepository, times(1)).deleteById(categorieProduitId);
+    void updateCategorieProduit() {
+        CategorieProduit categorieProduit = CategorieProduit.builder().
+                libelleCategorie("test").
+                codeCategorie("test").
+                build();
+        CategorieProduit savedCategorieProduit = categorieProduitService.addCategorieProduit(categorieProduit);
+        savedCategorieProduit.setLibelleCategorie("updated");
+        savedCategorieProduit.setCodeCategorie("updated");
+        CategorieProduit updatedCategoieProduit = categorieProduitService.updateCategorieProduit(savedCategorieProduit);
+        assertEquals("updated", updatedCategoieProduit.getLibelleCategorie());
+        assertEquals("updated", updatedCategoieProduit.getCodeCategorie());
+        categorieProduitService.deleteCategorieProduit(updatedCategoieProduit.getIdCategorieProduit());
     }
 
     @Test
-    void updateCategorieProduitTest() {
-        given(categorieProduitRepository.save(categorieProduit)).willReturn(categorieProduit);
-        categorieProduit.setCodeCategorie("C3");
-        categorieProduit.setLibelleCategorie("Category3");
-        CategorieProduit updatedEmployee = categorieProduitService.updateCategorieProduit(categorieProduit);
-        assertThat(updatedEmployee.getCodeCategorie()).isEqualTo("C3");
-        assertThat(updatedEmployee.getLibelleCategorie()).isEqualTo("Category3");
-    }
-
-    @Test
-    void retrieveCategorieProduitTest() {
-        given(categorieProduitRepository.findById(1L)).willReturn(Optional.of(categorieProduit));
-        CategorieProduit savedEmployee = categorieProduitService.retrieveCategorieProduit(categorieProduit.getIdCategorieProduit());
-        assertThat(savedEmployee).isNotNull();
+    void retrieveCategorieProduit() {
+        CategorieProduit categorieProduit = CategorieProduit.builder().
+                libelleCategorie("test").
+                codeCategorie("test").
+                build();
+        CategorieProduit savedCategorieProduit = categorieProduitService.addCategorieProduit(categorieProduit);
+        CategorieProduit expectedCategorieProduit = categorieProduitService.retrieveCategorieProduit(savedCategorieProduit.getIdCategorieProduit());
+        assertNotNull(categorieProduitService.retrieveCategorieProduit(categorieProduit.getIdCategorieProduit()));
+        assertEquals(savedCategorieProduit.getIdCategorieProduit(), expectedCategorieProduit.getIdCategorieProduit());
+        categorieProduitService.deleteCategorieProduit(categorieProduit.getIdCategorieProduit());
+        assertNull(categorieProduitService.retrieveCategorieProduit(categorieProduit.getIdCategorieProduit()));
     }
 }
