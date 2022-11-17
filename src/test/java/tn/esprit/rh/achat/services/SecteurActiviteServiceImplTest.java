@@ -19,6 +19,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -33,14 +34,16 @@ class SecteurActiviteServiceImplTest {
 	@InjectMocks
 	SecteurActiviteServiceImpl service;
 	
-	@Mock
-	SecteurActiviteRepository repository;
+	//@Mock
+	SecteurActiviteRepository repository =  Mockito.mock(SecteurActiviteRepository.class);
 
-	SecteurActivite secteurActivite = SecteurActivite.builder()
+	/*SecteurActivite secteurActivite = SecteurActivite.builder()
 			.idSecteurActivite(1L)
 			.codeSecteurActivite("8Z4DC")
 			.libelleSecteurActivite("secteur informatique")
-			.build();
+			.build();*/
+	
+	SecteurActivite secteurActivite = new SecteurActivite(1L,"8Z4DC","secteur informatique");
 	
 	@Test
 	@Order(1)
