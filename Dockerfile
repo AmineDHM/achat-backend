@@ -1,8 +1,4 @@
-FROM openjdk:8-jre-alpine
-
+FROM openjdk:11
+ADD target/achat-1.0.jar achat-1.0.jar
 EXPOSE 8089
-
-COPY ./target/achat-*.jar /usr/app/
-WORKDIR /usr/app
-
-CMD java -jar achat-*.jar
+ENTRYPOINT ["java","-jar","/achat-1.0.jar"]
